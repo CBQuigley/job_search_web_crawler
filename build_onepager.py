@@ -13,7 +13,7 @@ from reportlab.platypus import (
 
 GITHUB_URL = "https://github.com/CBQuigley/job_search_web_crawler"
 STREAMLIT_URL = "https://job-search-web-crawler.streamlit.app/"
-SCREENSHOT_PATH = "screenshot_placeholder.png"  # replace with real screenshot path
+SCREENSHOT_PATH = "Streamlit DB View.png"
 
 styles = getSampleStyleSheet()
 
@@ -56,8 +56,8 @@ story = []
 story.append(Paragraph("Portfolio sourcing signals", title_style))
 story.append(Paragraph(
     "An AI-judged tool that screens portfolio company career pages and tags each posting "
-    "with a category and rationale &mdash; built as a working example of AI-native tooling, "
-    "and run against Conductive Ventures' own active portfolio.",
+    "with a category and rationale; built as a working example of AI-native tooling, "
+    "and run against a few of Conductive Ventures' portfolio companies.",
     subtitle_style,
 ))
 story.append(HRFlowable(width="100%", thickness=0.75, color=colors.HexColor("#dddddd")))
@@ -67,8 +67,8 @@ story.append(Paragraph(
     "This started as a manual spreadsheet tracking career pages across VC portfolios during my "
     "own job search. I rebuilt it as a live pipeline: it pulls open roles directly from each "
     "company's applicant tracking system (Greenhouse, Ashby, Lever), sends each posting to "
-    "Claude for classification with a one-sentence rationale, and surfaces the results in a "
-    "filterable dashboard &mdash; not a keyword match, an actual judgment call with reasoning attached.",
+    "Claude for classification and a one-sentence rationale, and surfaces the results in a "
+    "filterable dashboard.",
     body_style,
 ))
 
@@ -77,9 +77,9 @@ bullets = [
     "Fetchers hit each company's ATS JSON API directly (not the marketing career page, which "
     "usually renders via JavaScript and returns nothing to a scraper).",
     "Every posting is classified by Claude into a category (AI-native, commercial/PM, senior IC) "
-    "with a confidence level and a one-sentence rationale &mdash; visible in the dashboard, not hidden.",
-    "Results are stored in SQLite with one row per signal, so results persist and re-running the "
-    "pipeline never creates duplicates.",
+    "with a confidence level and a one-sentence rationale.",
+    "Results are stored in SQLite with one row per signal, so results persist. Before calling Anthropic API, "
+    "script checks for existing Job URL entries so re-running the pipeline never creates duplicates.",
     "The architecture is intentionally extensible: the same fetch \u2192 judge \u2192 store \u2192 output "
     "pipeline is the foundation for a sourcing agent that pulls in news, funding, and hiring-velocity "
     "signals \u2014 not just job postings \u2014 and synthesizes them into a ranked brief per company.",
@@ -105,7 +105,7 @@ else:
     story.append(Paragraph("[ Screenshot of the running Streamlit dashboard goes here ]", placeholder_style))
 story.append(Paragraph("Live signal dashboard, filterable by company, tag, and confidence.", caption_style))
 
-story.append(Spacer(1, 10))
+story.append(Spacer(1, 30))
 story.append(Paragraph("Links", heading_style))
 story.append(Paragraph(f"GitHub repo: {GITHUB_URL}", link_style))
 story.append(Paragraph(f"Live demo: {STREAMLIT_URL}", link_style))
