@@ -1,0 +1,24 @@
+# Target list for the pipeline.
+#
+# ats: which ATS the company's career page runs on -- "greenhouse", "ashby",
+#      "lever", or "generic" (falls back to scraping the target URL's HTML).
+# target: for greenhouse/ashby/lever, this is the board token/slug from the
+#      company's careers URL. For "generic", this is a full career page URL.
+#
+# How to find a company's token: open their careers page, check the URL.
+#   job-boards.greenhouse.io/{token}   -> ats: greenhouse, target: {token}
+#   jobs.ashbyhq.com/{token}           -> ats: ashby,      target: {token}
+#   jobs.lever.co/{token}              -> ats: lever,      target: {token}
+# If none of those match, use ats: generic and paste the full career page URL.
+#
+# Add more companies by adding more entries here. No code changes needed.
+
+- company: "Figure AI"
+  ats: "greenhouse"
+  target: "figureai"
+# - company: "Physical Intelligence"
+#   ats: "ashby"
+#   target: "physicalintelligence"
+# - company: "Skild AI"
+#   ats: "greenhouse"
+#   target: "skildai-careers"
