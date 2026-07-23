@@ -13,12 +13,10 @@
 #
 # Add more companies by adding more entries here. No code changes needed.
 
-- company: "Figure AI"
+- company: "Motive"
   ats: "greenhouse"
-  target: "figureai"
-# - company: "Physical Intelligence"
-#   ats: "ashby"
-#   target: "physicalintelligence"
-# - company: "Skild AI"
-#   ats: "greenhouse"
-#   target: "skildai-careers"
+  target: "gomotive"
+
+- company: "Checkbox"
+  ats: "greenhouse"
+  target: "ambiqmicroinc"

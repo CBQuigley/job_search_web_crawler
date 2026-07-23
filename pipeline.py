@@ -15,7 +15,7 @@ import time
 
 import yaml
 
-from db import init_db, insert_signal
+from db import init_db, insert_signal, url_already_judged
 from fetchers import FETCHERS
 from judge import judge_signal
 
@@ -29,6 +29,7 @@ def run() -> None:
         companies = yaml.safe_load(f)
 
     total_signals = 0
+    skipped_already_judged = 0
 
     for entry in companies:
         company = entry["company"]
@@ -45,6 +46,10 @@ def run() -> None:
         print(f"  found {len(raw_signals)} candidate postings")
 
         for raw in raw_signals:
+            if url_already_judged(raw["url"]):
+                skipped_already_judged += 1
+                continue
+
             try:
                 structured = judge_signal(raw)
             except Exception as e:
@@ -58,7 +63,9 @@ def run() -> None:
             # Light rate limiting -- polite to both the target site and the API.
             time.sleep(0.5)
 
-    print(f"\nDone. {total_signals} signals written to the store.")
+    print(f"\nDone. {total_signals} new signals written to the store.")
+    if skipped_already_judged:
+        print(f"Skipped {skipped_already_judged} postings already judged in a previous run (no API calls spent).")
     print("Run `streamlit run app.py` to view them.")
 
 

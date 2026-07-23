@@ -13,9 +13,15 @@ Run with: streamlit run app.py
 import pandas as pd
 import streamlit as st
 
-from db import get_all_signals, get_all_companies
+from db import init_db, get_all_signals, get_all_companies
 
 st.set_page_config(page_title="Portfolio sourcing signals", layout="wide")
+
+# Ensures the signals table exists even on a fresh environment (e.g. a new
+# Streamlit Cloud deploy) that has never run pipeline.py locally. Without
+# this, querying an empty/nonexistent database throws instead of showing
+# the "no signals yet" message below.
+init_db()
 
 st.title("Portfolio sourcing signals")
 st.caption(

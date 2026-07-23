@@ -1,6 +1,4 @@
 .env
 venv/
-signals.db
 __pycache__/
 *.pyc
-# .streamlit/

@@ -68,6 +68,21 @@ def insert_signal(signal: StructuredSignal) -> None:
         )
 
 
+def url_already_judged(url: str) -> bool:
+    """
+    True if this exact posting URL already has a signal on record.
+
+    Called BEFORE judge_signal() in the pipeline -- the point is to skip
+    the Claude API call entirely for postings we've already judged, not
+    just avoid a duplicate database row. insert_signal()'s UNIQUE
+    constraint only prevents duplicate writes; it does nothing to stop you
+    from paying for the same judgment call twice.
+    """
+    with get_connection() as conn:
+        row = conn.execute("SELECT 1 FROM signals WHERE url = ? LIMIT 1", (url,)).fetchone()
+    return row is not None
+
+
 def get_all_companies() -> list[str]:
     with get_connection() as conn:
         rows = conn.execute("SELECT DISTINCT company FROM signals ORDER BY company").fetchall()
